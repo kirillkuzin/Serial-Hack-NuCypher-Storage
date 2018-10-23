@@ -1,0 +1,123 @@
+[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "keyName",
+				"type": "bytes32"
+			},
+			{
+				"name": "keyValue",
+				"type": "bytes"
+			},
+			{
+				"name": "keyCapsule",
+				"type": "bytes"
+			},
+			{
+				"name": "keyOwner",
+				"type": "bytes"
+			},
+			{
+				"name": "keySignature",
+				"type": "bytes"
+			}
+		],
+		"name": "newKey",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "keyName",
+				"type": "bytes32"
+			},
+			{
+				"name": "keyValue",
+				"type": "bytes"
+			},
+			{
+				"name": "keyCapsule",
+				"type": "bytes"
+			}
+		],
+		"name": "updateKey",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getKeys",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "keys",
+		"outputs": [
+			{
+				"name": "value",
+				"type": "bytes"
+			},
+			{
+				"name": "capsule",
+				"type": "bytes"
+			},
+			{
+				"name": "owner",
+				"type": "bytes"
+			},
+			{
+				"name": "signature",
+				"type": "bytes"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "listOfKeys",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
