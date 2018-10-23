@@ -20,6 +20,7 @@ if __name__ == '__main__':
                 print('keys <path> - вывести список ключей')
                 print('get <path> <key_name> - вывести значение ключа')
                 print('share <path> <key_name> <receiver_name> - открыть доступ к ключу')
+                print('remove <path> <key_name> - удалить ключ')
                 print('pk <path> <name> - экспортировать свой ключ хранилища для открытия доступа\n')
             else:
                 path = commandArgs[1]
