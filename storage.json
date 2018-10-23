@@ -1,32 +1,16 @@
 [
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "getKeys",
+		"outputs": [
 			{
-				"name": "keyName",
-				"type": "bytes32"
-			},
-			{
-				"name": "keyValue",
-				"type": "bytes"
-			},
-			{
-				"name": "keyCapsule",
-				"type": "bytes"
-			},
-			{
-				"name": "keyOwner",
-				"type": "bytes"
-			},
-			{
-				"name": "keySignature",
-				"type": "bytes"
+				"name": "",
+				"type": "bytes32[]"
 			}
 		],
-		"name": "newKey",
-		"outputs": [],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -46,12 +30,40 @@
 			}
 		],
 		"name": "updateKey",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "listOfKeys",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bool"
+				"type": "bytes32"
 			}
 		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "keyName",
+				"type": "bytes32"
+			}
+		],
+		"name": "removeKey",
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -59,15 +71,41 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getKeys",
+		"name": "owner",
 		"outputs": [
 			{
 				"name": "",
-				"type": "bytes32[]"
+				"type": "address"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "keyName",
+				"type": "bytes32"
+			},
+			{
+				"name": "keyValue",
+				"type": "bytes"
+			},
+			{
+				"name": "keyCapsule",
+				"type": "bytes"
+			},
+			{
+				"name": "keyOwner",
+				"type": "bytes"
+			}
+		],
+		"name": "newKey",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -93,8 +131,12 @@
 				"type": "bytes"
 			},
 			{
-				"name": "signature",
-				"type": "bytes"
+				"name": "ownerAddress",
+				"type": "address"
+			},
+			{
+				"name": "created",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -102,22 +144,9 @@
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "listOfKeys",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bytes32"
-			}
-		],
+		"inputs": [],
 		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+		"stateMutability": "nonpayable",
+		"type": "constructor"
 	}
 ]

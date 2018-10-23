@@ -5,32 +5,60 @@ contract Storage {
         bytes value;
         bytes capsule;
         bytes owner;
-        bytes signature;
+        address ownerAddress;
+        bool created;
     }
     mapping(bytes32 => Key) public keys;
     bytes32[] public listOfKeys;
+    address public owner;
 
-    function newKey(bytes32 keyName, bytes keyValue, bytes keyCapsule, bytes keyOwner, bytes keySignature) public {
-        for (uint i = 0; i < listOfKeys.length; i++) {
-            require(keyName != listOfKeys[i]);
-        }
+    modifier onlyOwner(bytes32 keyName) {
+        Key storage key = keys[keyName];
+        require(msg.sender == key.ownerAddress || msg.sender == owner);
+        _;
+    }
+
+    modifier keyIsCreated(bytes32 keyName) {
+        Key storage key = keys[keyName];
+        require(key.created);
+        _;
+    }
+
+    modifier keyNotCreated(bytes32 keyName) {
+        Key storage key = keys[keyName];
+        require(!key.created);
+        _;
+    }
+
+    constructor() public {
+        owner = msg.sender;
+    }
+
+    function newKey(bytes32 keyName, bytes keyValue, bytes keyCapsule, bytes keyOwner) public keyNotCreated(keyName) {
         setKey(keyName, keyValue, keyCapsule);
         setKeyOwner(keyName, keyOwner);
-        setKeySignature(keyName, keySignature);
+        setKeyOwnerAddress(keyName, msg.sender);
+        setKeyState(keyName, true);
         listOfKeys.push(keyName);
     }
 
-    function updateKey(bytes32 keyName, bytes keyValue, bytes keyCapsule) public returns(bool) {
-        bool keyIsSet = false;
-        for (uint i = 0; i < listOfKeys.length; i++) {
-            if (keyName == listOfKeys[i]) {
-                keyIsSet = true;
-                break;
-            }
-        }
-        require(keyIsSet);
+    function updateKey(bytes32 keyName, bytes keyValue, bytes keyCapsule) public keyIsCreated(keyName) onlyOwner(keyName) {
         setKey(keyName, keyValue, keyCapsule);
-        return true;
+    }
+
+    function removeKey(bytes32 keyName) public keyIsCreated(keyName) onlyOwner(keyName) {
+        bytes memory nullValue;
+        bytes memory nullCapsule;
+        bytes memory nullOwner;
+        address nullOwnerAddress;
+        setKey(keyName, nullValue, nullCapsule);
+        setKeyOwner(keyName, nullOwner);
+        setKeyOwnerAddress(keyName, nullOwnerAddress);
+        setKeyState(keyName, false);
+        for (uint i = 0; i < listOfKeys.length - 1; i++) {
+            listOfKeys[i] = listOfKeys[i + 1];
+        }
+        listOfKeys.length--;
     }
 
     function getKeys() public constant returns(bytes32[]) {
@@ -48,8 +76,13 @@ contract Storage {
         key.owner = keyOwner;
     }
 
-    function setKeySignature(bytes32 keyName, bytes keySignature) private {
+    function setKeyOwnerAddress(bytes32 keyName, address keyOwnerAddress) private {
         Key storage key = keys[keyName];
-        key.signature = keySignature;
+        key.ownerAddress = keyOwnerAddress;
+    }
+
+    function setKeyState(bytes32 keyName, bool keyState) private {
+        Key storage key = keys[keyName];
+        key.created = keyState;
     }
 }
